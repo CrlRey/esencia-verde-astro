@@ -1,0 +1,83 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+import 'normalize.css'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<Header />
+		<slot />
+		<Footer />
+	</body>
+</html>
+<style is:global>
+	:root {
+		--primary:#3b6a00;
+--on-primary:#ffffff;
+--primary-container:#b8f47c;
+--on-primary-container:#0e2000;
+--secondary:#57624a;
+--on-secondary:#ffffff;
+--secondary-container:#dbe7c8;
+--on-secondary-container:#151e0b;
+--tertiary:#386664;
+--on-tertiary:#ffffff;
+--tertiary-container:#bbece9;
+--on-tertiary-container:#00201f;
+--error:#ba1a1a;
+--on-error:#ffffff;
+--error-container:#ffdad6;
+--on-error-container:#410002;
+--background:#fdfcf5;
+--on-background:#1b1c18;
+--surface:#fafaf2;
+--on-surface:#1b1c18;
+--surface-variant:#e0e4d5;
+--on-surface-variant:#44483e;
+--outline:#74796c;
+--outline-variant:#c4c8ba;
+--shadow:#000000;
+--scrim:#000000;
+--inverse-surface:#2f312c;
+--inverse-on-surface:#f2f1ea;
+--inverse-primary:#9dd763;
+--surface-dim:#dbdad3;
+--surface-bright:#fafaf2;
+--surface-container-lowest:#ffffff;
+--surface-container-low:#f4f4ec;
+--surface-container:#efeee7;
+--surface-container-high:#e9e8e1;
+--surface-container-highest:#e3e3dc;
+	}
+	html {
+		font-family: system-ui, sans-serif;
+		background: var(--surface-bright);
+		background-size: 224px;
+	}
+	code {
+		font-family:
+			Menlo,
+			Monaco,
+			Lucida Console,
+			Liberation Mono,
+			DejaVu Sans Mono,
+			Bitstream Vera Sans Mono,
+			Courier New,
+			monospace;
+	}
+</style>

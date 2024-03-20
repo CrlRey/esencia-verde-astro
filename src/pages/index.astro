@@ -1,0 +1,81 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Plantas from "../components/Plantas.astro";
+import Blog from "../components/Blog.astro";
+
+
+const url = `${import.meta.env.URL_API}listado-plantas?populate=*`;
+const urlBlog = `${import.meta.env.URL_API}articulos?populate=*`;
+
+const [plantas, blog] = await Promise.all([fetch(url), fetch(urlBlog)]);
+
+const [{ data: pl }, { data: bl }] = await Promise.all([
+  plantas.json(),
+  blog.json(),
+]);
+---
+
+<Layout title="Esencia verde">
+  <Hero />
+
+  <div class="container">
+    <h1>Nuestras recomendaciones</h1>
+    <div class="grid">
+      {
+        pl?.map((pl) => (
+          <Plantas
+            Nombre={pl.attributes.Nombre}
+            precio={pl.attributes.precio}
+            descripcion={pl.attributes.descripcion}
+            Imagen={pl.attributes.Imagen}
+            URL={pl.attributes.URL}
+          />
+        ))
+      }
+    </div>
+
+    <h2>Articulos</h2>
+    <div class="blog">
+      
+        {
+          bl?.map((pl) => (
+            <Blog
+              titulo={pl.attributes.titulo}
+              description={pl.attributes.description}
+              imagen={pl.attributes.imagen}
+            />
+          ))
+        }
+      
+    </div>
+  </div>
+  
+</Layout>
+
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .blog {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    width: 100%;
+  }
+</style>

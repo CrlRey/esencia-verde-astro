@@ -1,0 +1,75 @@
+---
+import Image from 'astro/components/Image.astro';
+
+export interface Props {
+    Nombre: string;
+    descripcion: string;
+    URL?: string;
+    precio: number;
+    Imagen: object;
+
+}
+
+const { Nombre, descripcion, URL, precio, Imagen } = Astro.props
+
+---
+
+    <div class="card">
+        <h2>{Nombre}</h2>
+        <div class="img">
+          <Image loading='lazy' src={Imagen.data[0].attributes.formats.medium.url} alt={Nombre} width='300' height='300'/>
+        </div>
+        <p>{descripcion}</p>
+        <span class="pricing">${precio} MXN</span>
+        <a href={`/plantas/${URL}`} class="btn">VER</a>
+    </div>
+    
+  
+<style>
+
+  .pricing{
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--secondary)
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--primary);
+  }
+
+  .card h2 {
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .card p {
+    margin-bottom: 10px;
+  }
+
+  .img{
+    text-align: center;
+    max-width: 100%; /* Ancho máximo del contenedor de imagen */
+    height: auto; /* Altura automática */
+    overflow: hidden; /* Oculta el exceso de imagen */
+  }
+
+  .btn {
+    display: block;
+    background-color: var(--primary);
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .btn:hover {
+    background-color: var(--secondary);
+  }
+</style>
+  

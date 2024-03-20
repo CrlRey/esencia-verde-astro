@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Plantas from '../components/Plantas.astro';
+
+
+//Fetch
+const url = `${import.meta.env.URL_API}listado-plantas?populate=*`
+const respuesta = await fetch(url)
+const {data} = await respuesta.json()
+
+--- 
+<Layout title='Nuestras plantas'>
+    <div class="container">
+        <h1>Nuestras mejores plantas</h1>
+        <div class="grid">
+            {data?.map(pl => (
+            
+                <Plantas 
+                    Nombre={pl.attributes.Nombre}
+                    precio={pl.attributes.precio}
+                    descripcion={pl.attributes.descripcion}
+                    Imagen={pl.attributes.Imagen}
+                    URL={pl.attributes.URL}
+                />
+            ))} 
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 80px;
+      padding: 0 20px;
+    }
+
+    h1{
+        text-align: left;
+        font-size: 3rem;
+    }
+
+    .grid{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        width: 100%;
+    }
+
+    .card {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .card h2 {
+    margin-top: 0;
+  }
+
+  .card p {
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+  }
+
+  @media screen and (max-width: 768px){
+    h1{
+      text-align: center;
+    }
+  }
+</style>

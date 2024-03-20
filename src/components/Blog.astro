@@ -1,0 +1,85 @@
+---
+import Image from "astro/components/Image.astro";
+export interface Props {
+    titulo: string;
+    description: string;
+    imagen: object;
+}
+
+const { titulo, description, imagen } = Astro.props;
+---
+
+<div class="article-container">
+    <!-- Artículo 1 -->
+    <div class="card">
+        <h3>{titulo}</h3>
+        <div class="image-container">
+            <Image
+                loading="lazy"
+                src={imagen.data[0].attributes.formats.medium.url}
+                alt="curso"
+                width="320"
+                height="200"
+            />
+        <p class="description">{description}</p>
+        <a href="/" class="btn">Leer más</a>
+    </div>
+</div>
+
+
+<style>
+
+.image-container {
+    max-width: 100%; /* Ancho máximo del contenedor de imagen */
+    height: auto; /* Altura automática */
+    overflow: hidden; /* Oculta el exceso de imagen */
+}
+
+.card {
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--primary);
+    text-align: center;
+  }
+
+  .card h2 {
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .card p {
+    margin-bottom: 10px;
+  }
+
+    .btn {
+        display: block;
+        background-color: var(--primary);
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1em;
+        margin-top: 2rem;
+        text-align: center;
+        
+    }
+
+    .btn:hover {
+        background-color: var(--secondary);
+    }
+
+    .description {
+    margin-bottom: 10px;
+    overflow: hidden; /* Oculta el exceso de texto */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto se recorta */
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* Número de líneas a mostrar */
+    -webkit-box-orient: vertical;
+}
+
+    p{
+        text-align: justify;
+        
+    }
+</style>

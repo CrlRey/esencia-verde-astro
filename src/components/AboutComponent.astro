@@ -1,0 +1,24 @@
+---
+import Image from 'astro/components/Image.astro';
+
+export interface Props {
+    description: string;
+
+}
+
+const { description } = Astro.props
+
+---
+
+
+    <p>{description}</p>
+
+
+<style>
+     p{
+        font-size: 1.4rem;
+        width: 70%;
+        text-align: justify;
+        
+     }
+</style>

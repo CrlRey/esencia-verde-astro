@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro'
+import AboutComponent from '../components/AboutComponent.astro'
+import Image from 'astro/components/Image.astro'
+
+const url = `${import.meta.env.URL_API}about?populate=imagen`
+const respuesta = await fetch(url)
+const {data: about } = await respuesta.json()
+const img = about.attributes.imagen.data.attributes.formats.large.url
+
+---
+
+<Layout title='Sobre esencia verde' >
+    <div class="container">
+        <h1>Sobre Esencia Verde</h1>
+       <div class="img">
+        <Image src={img} loading="eager" alt="nombre"  width={1000} height={600} />
+       </div>
+        <AboutComponent 
+                
+                description={about.attributes.description}
+                
+            />
+    </div>
+</Layout>
+
+<style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 80px;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .img{
+        text-align: center;
+    max-width: 100%; /* Ancho máximo del contenedor de imagen */
+    height: auto; /* Altura automática */
+    overflow: hidden; /* Oculta el exceso de imagen */
+    }
+</style>

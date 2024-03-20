@@ -1,0 +1,88 @@
+---
+
+---
+
+<section class="hero">
+    <div class="hero-image"></div>
+    <div class="hero-overlay"></div> 
+    <div class="hero-text">
+      <h1>Bienvenido a nuestra tienda online</h1>
+      <p>Descubre una amplia selección de productos</p>
+      <a href="/planta" class="btn">Explorar</a>
+    </div>
+  </section>
+  
+  <style>
+    .hero {
+      position: relative;
+      height: 400px; /* Altura deseada del hero image */
+      overflow: hidden;
+    }
+  
+    .hero-image {
+      background-image: url('../img/hero-img.jpg'); /* Ruta de la imagen de fondo */
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-overlay { /* Nuevo div para el efecto oscuro */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Color oscuro semitransparente */
+  }
+  
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #fff;
+      z-index: 1;
+    }
+  
+    .hero-text h1 {
+      font-size: 3em;
+      margin-bottom: 0.5em;
+    }
+  
+    .hero-text p {
+      font-size: 1.5em;
+      margin-bottom: 1em;
+    }
+  
+    .btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+    }
+  
+    .btn:hover {
+      background-color: var(--secondary);
+      transition: all;
+    }
+
+    @media screen and (max-width: 768px) {
+    .hero-text h1 {
+      margin-top: 5rem;
+      font-size: 2em; /* Reducimos el tamaño del texto en dispositivos más pequeños */
+    }
+
+    .hero-text p {
+      font-size: 1em; /* Reducimos el tamaño del texto en dispositivos más pequeños */
+    }
+
+    .btn {
+      font-size: 1em; /* Reducimos el tamaño del botón en dispositivos más pequeños */
+    }
+  }
+  </style>

@@ -1,0 +1,95 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Image from "astro/components/Image.astro";
+
+export async function getStaticPaths() {
+    const url = `${import.meta.env.URL_API}listado-plantas?populate=*`;
+    const respueta = await fetch(url);
+    const { data } = await respueta.json();
+
+    return data.map((id) => ({
+        params: {
+            id: id.attributes.URL,
+        },
+        props: {
+            planta: id.attributes,
+        },
+    }));
+}
+const { Nombre, descripcion, URL, precio, Imagen } = Astro.props.planta;
+---
+
+<Layout title={Nombre}>
+    <div class="container">
+        <section class="grid">
+            <div class="main">
+                
+                <Image
+                    loading="eager"
+                    src={Imagen.data[0].attributes.formats.medium.url}
+                    alt={Nombre}
+                    width="500"
+                    height="500"
+                />
+            </div>
+            <div class="description">
+                <h1>{Nombre}</h1>
+                <p>{descripcion}</p>
+                <span>${precio} MXN</span>
+            </div>
+        </section>
+    </div>
+</Layout>
+
+<style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 80px;
+        padding: 0 20px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr; /* Cambiar a una sola columna en pantallas pequeñas */
+        gap: 20px; /* Espacio entre los elementos */
+        min-height: 77vh;
+        
+    }
+
+    .main {
+        text-align: center; /* Alineación al centro para pantallas pequeñas */
+        margin: auto;
+    }
+
+    .description {
+        text-align: center; /* Alineación al centro para pantallas pequeñas */
+        margin: auto;
+    }
+
+    .description p {
+        font-size: 1.5rem;
+        margin-bottom: 20px; /* Espacio inferior entre el texto y el precio */
+    }
+
+    span {
+        font-weight: bold;
+        font-size: 2rem;
+        color: var(--primary);
+    }
+
+    @media screen and (max-width: 768px) {
+        .container {
+            margin-top: 120px; /* Añadir margen superior adicional en dispositivos móviles */
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .grid {
+            grid-template-columns: repeat(2, 1fr); /* Restaurar el diseño de dos columnas en pantallas más grandes */
+            
+        }
+    }
+</style>
